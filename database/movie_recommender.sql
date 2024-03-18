@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS movie_recommender;
-
-CREATE TABLE user(
+CREATE TABLE person(
 	user_id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(40),
     password VARCHAR(80),
@@ -17,7 +16,7 @@ CREATE TABLE responses(
     movie_night VARCHAR(20),
     ratings VARCHAR(15),
     PRIMARY KEY(response_id),
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE
+    FOREIGN KEY(user_id) REFERENCES person(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE movie(
@@ -92,7 +91,7 @@ CREATE TABLE ratings(
     movie_id INT NOT NULL,
     rating_score FLOAT,
     PRIMARY KEY(user_id, movie_id),
-    FOREIGN KEY(user_id) REFERENCES user(user_id),
+    FOREIGN KEY(user_id) REFERENCES person(user_id),
     FOREIGN KEY(movie_id) REFERENCES movie(movie_id)    
 );
 
@@ -140,7 +139,7 @@ CREATE TABLE watch_list(
     movie_id INT NOT NULL,
     PRIMARY KEY(watch_list_id),
     UNIQUE KEY(user_id, movie_id),
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES person(user_id) ON DELETE CASCADE,
     FOREIGN KEY(movie_id) REFERENCES movie(movie_id)
 );
 -- many to many:  each user has a list of movies they watched and each movie can be can be in many users watched list
@@ -150,7 +149,7 @@ CREATE TABLE watched_list(
     movie_id INT NOT NULL,
     PRIMARY KEY(watched_list_id),
     UNIQUE KEY(user_id, movie_id),
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES person(user_id) ON DELETE CASCADE,
     FOREIGN KEY(movie_id) REFERENCES movie(movie_id)
 );
 
@@ -159,7 +158,7 @@ CREATE TABLE user_favorite_genre(
 	user_id INT NOT NULL,
     genre_id INT NOT NULL,
     PRIMARY KEY(user_id, genre_id),
-	FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+	FOREIGN KEY (user_id) REFERENCES person(user_id) ON DELETE CASCADE,
     FOREIGN KEY(genre_id) REFERENCES genre(genre_id)
 );
 
@@ -168,7 +167,7 @@ CREATE TABLE user_favorite_actor(
 	user_id INT NOT NULL,
     actor_id INT NOT NULL,
     PRIMARY KEY(user_id, actor_id),
-	FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+	FOREIGN KEY (user_id) REFERENCES person(user_id) ON DELETE CASCADE,
     FOREIGN KEY(actor_id) REFERENCES actor(actor_id)
 );
 
@@ -179,10 +178,7 @@ CREATE TABLE selection(
     movie_id INT NOT NULL,
     response_id INT NOT NULL UNIQUE,
     PRIMARY KEY(selection_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES person(user_id) ON DELETE CASCADE,
     FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
     FOREIGN KEY (response_id) REFERENCES responses(response_id) ON DELETE CASCADE
 );
-
-
-
