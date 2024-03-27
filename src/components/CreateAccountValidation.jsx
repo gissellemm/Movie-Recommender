@@ -13,6 +13,8 @@ function Validation(values) {
         error.age = "Age should not be empty";
     } else if (values.age === 0) {
         error.age = "Age cannot be zero";
+    } else if (values.age < 0) {
+        error.age = "Age cannot less than zero";
     } else {
         error.age = "";
     }

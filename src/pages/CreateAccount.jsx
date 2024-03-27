@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Validation from "../components/CreateAccountValidation";
 import axios from 'axios';
+import logo from "../logo.png";
+
 
 const CreateAccount = () => {
     const [values, setValues] = useState({
@@ -33,35 +35,48 @@ const CreateAccount = () => {
     };
 
     return (
-        <div>
+        <div className="CreateAccount">
+
+            <div className="header">
+                <img src={logo} alt="Reel Match Logo" className="logo"/> 
+                <h3>ReelMatch</h3>
+            </div>
+
+            <h1>Create your account</h1>
+
+            <h6>Create an account to save your movie selections and better your movie recommendations.</h6>
+
             <div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="Full Name">Full Name</label>
+                <form onSubmit={handleSubmit} className="form">
+                    <div className="signup">
+                        <label htmlFor="full_name">Full Name</label>
                         <input type="text" placeholder="Enter Full Name" name="full_name" onChange={handleInput} />
                         {errors.full_name && <span className="text-danger"> {errors.full_name}</span>}
                     </div>
-                    <div>
+                    <div className="signup">
                         <label htmlFor="age">Age</label>
-                        <input type="number" placeholder="Enter Age" name="age" onChange={handleInput} />
+                        <input type="number" placeholder="Enter Age" name="age" onChange={handleInput} min="1" max="100"/>
                         {errors.age && <span className="text-danger"> {errors.age}</span>}
                     </div>
-                    <div>
+                    <div className="signup">
                         <label htmlFor="email">Email</label>
                         <input type="email" placeholder="Enter Email" name="email" onChange={handleInput} />
                         {errors.email && <span className="text-danger"> {errors.email}</span>}
                     </div>
-                    <div>
+                    <div className="signup">
                         <label htmlFor="password">Password</label>
                         <input type="password" placeholder="Enter Password" name="password" onChange={handleInput} />
                         {errors.password && <span className="text-danger"> {errors.password}</span>}
                     </div>
-                    <button type="submit">Sign Up</button>
-                    <p>Already have an account?</p>
-                    <Link to="/Login" className="btn btn-default border">Login</Link>
+                    <div className="signup" style={{ marginTop: "0px" }}>
+                        <button type="submit">Sign Up</button>
+                    </div>
 
+                    <h6>Already have an account?</h6>
+                    <Link to="/Login"><button>Login</button></Link>
                 </form>
             </div>
+
         </div>
     );
 };
